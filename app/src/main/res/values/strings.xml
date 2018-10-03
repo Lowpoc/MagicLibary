@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MagicLibary</string>
     <string name="bgsplash" />
+    <string name="magic_library">Magic Library</string>
+    <string name="cards">Card</string>
+    <string name="sets">sets</string>
 </resources>
