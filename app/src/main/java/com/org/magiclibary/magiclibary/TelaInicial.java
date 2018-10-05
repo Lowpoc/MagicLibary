@@ -1,5 +1,6 @@
 package com.org.magiclibary.magiclibary;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,7 @@ public class TelaInicial extends AppCompatActivity {
     }
 
     public void showCards(View view) {
-        Toast.makeText(this.getApplicationContext(), "Cards", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, ListaCards.class));
     }
 
     public void showSets(View view) {
