@@ -23,13 +23,13 @@ public class SplashScreen extends AppCompatActivity {
         this.Song = MediaPlayer.create(this, R.raw.games_of_thrones);
         Song.start();
         ImageView img = findViewById(R.id.imageView);
-        img.animate().rotationBy(360).setDuration(8000).setInterpolator(new LinearInterpolator()).start();
+        img.animate().rotationBy(360).setDuration(1900).setInterpolator(new LinearInterpolator()).start();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(getBaseContext(), TelaInicial.class));
                 Song.stop();
             }
-        }, 8100);
+        }, 2000);
     }
 }

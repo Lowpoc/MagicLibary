@@ -4,13 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListaCards">
+    tools:context=".ListaCards"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_container"
+        >
+    </FrameLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gold"
+        android:id="@+id/action_bar"
+        >
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/activity_card"
-        android:id="@+id/recly">
+        android:id="@+id/recly"
+        app:layout_constraintTop_toBottomOf="@id/action_bar">
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>
