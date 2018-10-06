@@ -15,4 +15,5 @@
     <string name="exclude">Exclude Unselected Colors (limit by selection)</string>
     <string name="match_multcolors">Match Multicolored Cards Only (2+ colors)</string>
     <string name="search_by_color">Search by color:</string>
+    <string name="display_cards">Displays a magic card set</string>
 </resources>

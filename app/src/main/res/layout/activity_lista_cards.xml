@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="visible"
         android:id="@+id/progressbar"
-        android:indeterminateTint="@color/black"/>
+        android:indeterminateTint="@color/gold"/>
 
 
     <android.support.v7.widget.Toolbar

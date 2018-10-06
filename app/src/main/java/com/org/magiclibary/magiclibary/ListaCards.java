@@ -31,6 +31,7 @@ import retrofit2.Response;
 
 public class ListaCards extends AppCompatActivity {
     Map<String, String> filter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

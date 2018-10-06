@@ -11,8 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".TelaInicial" />
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".TelaInicial" android:theme="@style/Theme.Design"/>
         <activity
             android:name=".SplashScreen"
             android:noHistory="true">
@@ -25,10 +25,10 @@
         <activity android:name=".Card" />
         <activity
             android:name=".ListaCards"
-            android:theme="@style/NoActionBar" />
+            />
         <activity
             android:name=".Dialogs.DialogFilterCards"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>
