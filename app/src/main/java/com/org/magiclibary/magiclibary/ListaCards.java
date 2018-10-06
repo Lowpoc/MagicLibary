@@ -11,9 +11,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import Adapters.ListCardsAdapter;
 import Models.Deck;
@@ -24,13 +30,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListaCards extends AppCompatActivity {
-
+    Map<String, String> filter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_cards);
         this.eventsToolBar();
         Fresco.initialize(this);
+        this.filter = new HashMap<>();
         this.getCards();
     }
 
@@ -51,8 +58,23 @@ public class ListaCards extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListaCards.this);
                 View view = getLayoutInflater().inflate(R.layout.activity_dialog_filter_cards, null);
+                final Button btn = view.findViewById(R.id.button);
+                final EditText name = view.findViewById(R.id.editText2);
                 builder.setView(view);
-                AlertDialog alertDialog = builder.create();
+                final AlertDialog alertDialog = builder.create();
+
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        filter.put("name", name.getText().toString());
+                        final ProgressBar progressBar = findViewById(R.id.progressbar);
+                        progressBar.setElevation(100);
+                        progressBar.setVisibility(View.VISIBLE);
+                        getCards();
+                        alertDialog.dismiss();
+                    }
+                });
+
                 alertDialog.show();
                 return true;
             }
@@ -61,16 +83,18 @@ public class ListaCards extends AppCompatActivity {
 
     private void getCards() {
         MagicGatheringService magicGatheringService = new MagicGatheringService();
-        IMagicService deckCall = magicGatheringService.connect();
         final ProgressBar progressBar = findViewById(R.id.progressbar);
 
         progressBar.setVisibility(View.VISIBLE);
 
-        deckCall.getCards().enqueue(new Callback<Deck>() {
+
+        Callback<Deck> deckCallback = new Callback<Deck>() {
             @Override
             public void onResponse(Call<Deck> call, Response<Deck> response) {
                 if (response.isSuccessful()) {
                     Deck deck = response.body();
+
+
 
                     RecyclerView recyclerView = findViewById(R.id.recly);
                     ListCardsAdapter listCardsAdapter = new ListCardsAdapter();
@@ -84,8 +108,9 @@ public class ListaCards extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Deck> call, Throwable t) {
-                Log.e("Error", "Error x");
+
             }
-        });
+        };
+        magicGatheringService.getCards(filter, deckCallback);
     }
 }
