@@ -1,20 +1,19 @@
 package com.org.magiclibary.magiclibary;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.org.magiclibary.magiclibary.Fragments.FilterCards;
 
 import Adapters.ListCardsAdapter;
 import Models.Deck;
@@ -50,19 +49,22 @@ public class ListaCards extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.frame_container, new FilterCards())
-                        .commit();
-                return false;
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListaCards.this);
+                View view = getLayoutInflater().inflate(R.layout.activity_dialog_filter_cards, null);
+                builder.setView(view);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         });
     }
 
     private void getCards() {
         MagicGatheringService magicGatheringService = new MagicGatheringService();
-
         IMagicService deckCall = magicGatheringService.connect();
+        final ProgressBar progressBar = findViewById(R.id.progressbar);
+
+        progressBar.setVisibility(View.VISIBLE);
 
         deckCall.getCards().enqueue(new Callback<Deck>() {
             @Override
@@ -76,6 +78,7 @@ public class ListaCards extends AppCompatActivity {
                     listCardsAdapter.setDeck(deck);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(listCardsAdapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
 

@@ -6,7 +6,13 @@
     <string name="sets">Sets</string>
     <string name="todo">TODO</string>
     <string name="textview">TextView</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="filtro">filtro</string>
-    <string name="cardlist">Card List</string>
+    <string name="cardlist">Card list</string>
+    <string name="button">Button</string>
+    <string name="filter_for_consultation">Filter for consultation</string>
+    <string name="name">Name</string>
+    <string name="search">search</string>
+    <string name="match_colors">Match Colors Exactly (use \'and\' instead of \'or\')</string>
+    <string name="exclude">Exclude Unselected Colors (limit by selection)</string>
+    <string name="match_multcolors">Match Multicolored Cards Only (2+ colors)</string>
+    <string name="search_by_color">Search by color:</string>
 </resources>

@@ -23,7 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Card" />
-        <activity android:name=".ListaCards" android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".ListaCards"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".Dialogs.DialogFilterCards"
+            android:theme="@style/NoActionBar"/>
     </application>
 
 </manifest>
