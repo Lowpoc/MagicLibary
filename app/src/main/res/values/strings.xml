@@ -16,4 +16,6 @@
     <string name="match_multcolors">Match Multicolored Cards Only (2+ colors)</string>
     <string name="search_by_color">Search by color:</string>
     <string name="display_cards">Displays a magic card set</string>
+    <string name="failedtoconnect">Failed to connect</string>
+    <string name="amount_per_page">Amount Per Page</string>
 </resources>

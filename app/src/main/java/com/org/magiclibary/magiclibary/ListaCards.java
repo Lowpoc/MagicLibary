@@ -1,6 +1,7 @@
 package com.org.magiclibary.magiclibary;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,13 +13,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import Adapters.ListCardsAdapter;
@@ -40,6 +46,16 @@ public class ListaCards extends AppCompatActivity {
         Fresco.initialize(this);
         this.filter = new HashMap<>();
         this.getCards();
+
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                filter.clear();
+                getCards();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -61,13 +77,69 @@ public class ListaCards extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.activity_dialog_filter_cards, null);
                 final Button btn = view.findViewById(R.id.button);
                 final EditText name = view.findViewById(R.id.editText2);
+                final EditText pagesize = view.findViewById(R.id.pagesize);
+                final CheckBox black = view.findViewById(R.id.search_color_black);
+                final CheckBox white = view.findViewById(R.id.search_color_white);
+                final CheckBox red = view.findViewById(R.id.search_color_red);
+                final CheckBox blue = view.findViewById(R.id.search_color_blue);
+
+                black.setChecked(filter.containsKey("black"));
+                white.setChecked(filter.containsKey("white"));
+                red.setChecked(filter.containsKey("red"));
+                blue.setChecked(filter.containsKey("blue"));
+                pagesize.setText(filter.get("pageSize"));
+
+                final List<CheckBox> colors = new LinkedList<CheckBox>();
+                colors.add(black);
+                colors.add(white);
+                colors.add(red);
+                colors.add(blue);
+
+                if (!filter.isEmpty()) {
+                    name.setText(!filter.get("name").isEmpty() ?  filter.get("name") : "");
+                }
+
                 builder.setView(view);
                 final AlertDialog alertDialog = builder.create();
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        filter.put("name", name.getText().toString());
+                        String filterColor = "";
+
+                        for (CheckBox color:
+                             colors) {
+                            if (!color.isChecked()) continue;
+
+                            switch (color.getId()) {
+                                case R.id.search_color_black:
+                                    filterColor += "|black";
+                                    filter.put("black","true");
+                                    break;
+                                case R.id.search_color_white:
+                                    filterColor += "|white";
+                                    filter.put("white","true");
+                                    break;
+                                case R.id.search_color_red:
+                                    filterColor += "|red";
+                                    filter.put("red","true");
+                                    break;
+                                case R.id.search_color_blue:
+                                    filterColor += "|blue";
+                                    filter.put("blue","true");
+                                    break;
+                            }
+                        }
+
+                        if (name.getText().toString() != "") {
+                            filter.put("name", name.getText().toString());
+                        }
+                        if (!filterColor.isEmpty()) {
+                            filter.put("colors", filterColor);
+                        }
+                        if(pagesize.getText().toString() != "") {
+                           filter.put("pageSize", pagesize.getText().toString());
+                        }
                         final ProgressBar progressBar = findViewById(R.id.progressbar);
                         progressBar.setElevation(100);
                         progressBar.setVisibility(View.VISIBLE);
@@ -87,15 +159,21 @@ public class ListaCards extends AppCompatActivity {
         final ProgressBar progressBar = findViewById(R.id.progressbar);
 
         progressBar.setVisibility(View.VISIBLE);
-
+        progressBar.setElevation(999);
 
         Callback<Deck> deckCallback = new Callback<Deck>() {
             @Override
             public void onResponse(Call<Deck> call, Response<Deck> response) {
                 if (response.isSuccessful()) {
                     Deck deck = response.body();
+                    Gson gson = new Gson();
+                    TextView notFoundCards = findViewById(R.id.notfound);
 
-
+                    if (deck.cards.isEmpty()) {
+                        notFoundCards.setVisibility(View.VISIBLE);
+                    } else {
+                        notFoundCards.setVisibility(View.GONE);
+                    }
 
                     RecyclerView recyclerView = findViewById(R.id.recly);
                     ListCardsAdapter listCardsAdapter = new ListCardsAdapter();
@@ -109,9 +187,13 @@ public class ListaCards extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Deck> call, Throwable t) {
-
+                Toast.makeText(ListaCards.this, getString(R.string.failedtoconnect), Toast.LENGTH_LONG).show();
             }
         };
         magicGatheringService.getCards(filter, deckCallback);
+    }
+
+    private void fillFilter() {
+
     }
 }

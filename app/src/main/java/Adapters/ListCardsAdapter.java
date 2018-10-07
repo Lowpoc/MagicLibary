@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.org.magiclibary.magiclibary.R;
 
+import Models.Card;
 import Models.Deck;
 
 public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.ItemCardAdapter> {
@@ -42,6 +44,7 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.Item
         return deck != null ? deck.cards.size() : 0;
     }
 
+
    public class ItemCardAdapter extends RecyclerView.ViewHolder {
 
         public SimpleDraweeView simpleDraweeView;
@@ -53,6 +56,14 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.Item
             this.simpleDraweeView = (SimpleDraweeView) itemView.findViewById(R.id.my_image_view);
             this.name = (TextView) itemView.findViewById(R.id.name);
             this.description = (TextView) itemView.findViewById(R.id.description);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    Card card = deck.cards.get(position);
+                    Toast.makeText(v.getContext(), card.name , Toast.LENGTH_LONG).show();
+                }
+            });
         }
-    }
+   }
 }
