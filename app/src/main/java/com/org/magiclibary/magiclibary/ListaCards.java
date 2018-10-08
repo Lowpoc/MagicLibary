@@ -1,5 +1,6 @@
 package com.org.magiclibary.magiclibary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -7,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,20 +22,21 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import Adapters.ListCardsAdapter;
+import Interfaces.OnGetItemAdapter;
 import Models.Deck;
-import Services.MagicGathering.IMagicService;
 import Services.MagicGathering.MagicGatheringService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListaCards extends AppCompatActivity {
+public class ListaCards extends AppCompatActivity implements OnGetItemAdapter<Models.Card> {
     Map<String, String> filter;
 
     @Override
@@ -96,7 +97,7 @@ public class ListaCards extends AppCompatActivity {
                 colors.add(blue);
 
                 if (!filter.isEmpty()) {
-                    name.setText(!filter.get("name").isEmpty() ?  filter.get("name") : "");
+                    name.setText(!filter.get("name").isEmpty() ? filter.get("name") : "");
                 }
 
                 builder.setView(view);
@@ -107,26 +108,26 @@ public class ListaCards extends AppCompatActivity {
                     public void onClick(View v) {
                         String filterColor = "";
 
-                        for (CheckBox color:
-                             colors) {
+                        for (CheckBox color :
+                                colors) {
                             if (!color.isChecked()) continue;
 
                             switch (color.getId()) {
                                 case R.id.search_color_black:
                                     filterColor += "|black";
-                                    filter.put("black","true");
+                                    filter.put("black", "true");
                                     break;
                                 case R.id.search_color_white:
                                     filterColor += "|white";
-                                    filter.put("white","true");
+                                    filter.put("white", "true");
                                     break;
                                 case R.id.search_color_red:
                                     filterColor += "|red";
-                                    filter.put("red","true");
+                                    filter.put("red", "true");
                                     break;
                                 case R.id.search_color_blue:
                                     filterColor += "|blue";
-                                    filter.put("blue","true");
+                                    filter.put("blue", "true");
                                     break;
                             }
                         }
@@ -137,8 +138,8 @@ public class ListaCards extends AppCompatActivity {
                         if (!filterColor.isEmpty()) {
                             filter.put("colors", filterColor);
                         }
-                        if(pagesize.getText().toString() != "") {
-                           filter.put("pageSize", pagesize.getText().toString());
+                        if (pagesize.getText().toString() != "") {
+                            filter.put("pageSize", pagesize.getText().toString());
                         }
                         final ProgressBar progressBar = findViewById(R.id.progressbar);
                         progressBar.setElevation(100);
@@ -176,7 +177,7 @@ public class ListaCards extends AppCompatActivity {
                     }
 
                     RecyclerView recyclerView = findViewById(R.id.recly);
-                    ListCardsAdapter listCardsAdapter = new ListCardsAdapter();
+                    ListCardsAdapter listCardsAdapter = new ListCardsAdapter(ListaCards.this);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(ListaCards.this, LinearLayoutManager.VERTICAL, false);
                     listCardsAdapter.setDeck(deck);
                     recyclerView.setLayoutManager(layoutManager);
@@ -193,7 +194,12 @@ public class ListaCards extends AppCompatActivity {
         magicGatheringService.getCards(filter, deckCallback);
     }
 
-    private void fillFilter() {
-
+    @Override
+    public void getItem(Models.Card item) {
+            Intent it = new Intent(this, DetalheCard.class);
+            it.putExtra("name", item.name);
+            it.putExtra("description", item.text);
+            it.putExtra("url", item.imageUrl);
+            startActivity(it);
     }
 }

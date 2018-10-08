@@ -9,7 +9,6 @@
     <string name="cardlist">Card list</string>
     <string name="button">Button</string>
     <string name="filter_for_consultation">Filter for consultation</string>
-    <string name="name">Name</string>
     <string name="search">search</string>
     <string name="match_colors">Match Colors Exactly (use \'and\' instead of \'or\')</string>
     <string name="exclude">Exclude Unselected Colors (limit by selection)</string>
@@ -18,4 +17,5 @@
     <string name="display_cards">Displays a magic card set</string>
     <string name="failedtoconnect">Failed to connect</string>
     <string name="amount_per_page">Amount Per Page</string>
+    <string name="name">Name</string>
 </resources>

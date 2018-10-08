@@ -7,15 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.org.magiclibary.magiclibary.R;
 
+import Interfaces.OnGetItemAdapter;
 import Models.Card;
 import Models.Deck;
 
 public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.ItemCardAdapter> {
+
+    private OnGetItemAdapter onGetItemAdapter;
+
+    public ListCardsAdapter(OnGetItemAdapter onGetItemAdapter) {
+        this.deck = deck;
+        this.onGetItemAdapter = onGetItemAdapter;
+    }
 
     private Deck deck;
 
@@ -61,7 +68,7 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.Item
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     Card card = deck.cards.get(position);
-                    Toast.makeText(v.getContext(), card.name , Toast.LENGTH_LONG).show();
+                    onGetItemAdapter.getItem(card);
                 }
             });
         }

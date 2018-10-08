@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".TelaInicial" android:theme="@style/Theme.Design"/>
+        <activity
+            android:name=".TelaInicial"
+            android:theme="@style/Theme.Design" />
         <activity
             android:name=".SplashScreen"
             android:noHistory="true">
@@ -23,12 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Card" />
-        <activity
-            android:name=".ListaCards"
-            />
+        <activity android:name=".ListaCards" />
         <activity
             android:name=".Dialogs.DialogFilterCards"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".DetalheCard"></activity>
     </application>
 
 </manifest>
