@@ -3,6 +3,7 @@ package Services.MagicGathering;
 import java.util.Map;
 
 import Models.Deck;
+import Models.Inventory;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
@@ -12,4 +13,7 @@ public interface IMagicService {
 
     @GET("cards")
     Call<Deck> getCards(@QueryMap Map<String,String> filter);
+
+    @GET("sets")
+    Call<Inventory> getSets(@QueryMap Map<String,String> filter);
 }

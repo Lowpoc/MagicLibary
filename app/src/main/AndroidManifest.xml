@@ -29,7 +29,9 @@
         <activity
             android:name=".Dialogs.DialogFilterCards"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".DetalheCard"></activity>
+        <activity android:name=".DetalheCard" />
+        <activity android:name=".Set" />
+        <activity android:name=".ListaSets"></activity>
     </application>
 
 </manifest>

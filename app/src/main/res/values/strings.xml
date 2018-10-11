@@ -18,4 +18,11 @@
     <string name="failedtoconnect">Failed to connect</string>
     <string name="amount_per_page">Amount Per Page</string>
     <string name="name">Name</string>
+    <string name="label_code">Code:</string>
+    <string name="label_release">ReleaseDate:</string>
+    <string name="label_mkm_name">Mkm_Name:</string>
+    <string name="label_mkm_id">Mkm_id:</string>
+    <string name="label_border">Border:</string>
+    <string name="label_type">Type:</string>
+    <string name="label_name">Name:</string>
 </resources>
