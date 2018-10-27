@@ -6,5 +6,7 @@ public class Set {
     public String type;
     public Integer mkm_id;
     public String mkm_name;
-    public String release;
+    public String releaseDate;
+    public String border;
+
 }

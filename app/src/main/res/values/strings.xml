@@ -25,4 +25,5 @@
     <string name="label_border">Border:</string>
     <string name="label_type">Type:</string>
     <string name="label_name">Name:</string>
+    <string name="no_sets_found">No sets found.</string>
 </resources>

@@ -20,7 +20,6 @@ public class ListCardsAdapter extends RecyclerView.Adapter<ListCardsAdapter.Item
     private OnGetItemAdapter onGetItemAdapter;
 
     public ListCardsAdapter(OnGetItemAdapter onGetItemAdapter) {
-        this.deck = deck;
         this.onGetItemAdapter = onGetItemAdapter;
     }
 
