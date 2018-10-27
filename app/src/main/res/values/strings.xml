@@ -26,4 +26,6 @@
     <string name="label_type">Type:</string>
     <string name="label_name">Name:</string>
     <string name="no_sets_found">No sets found.</string>
+    <string name="sets_list">Sets List</string>
+    <string name="display_sets">Display Sets</string>
 </resources>

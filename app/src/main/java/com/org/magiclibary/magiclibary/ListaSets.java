@@ -67,37 +67,24 @@ public class ListaSets extends AppCompatActivity  implements OnGetItemAdapter<Se
 
     private void eventsToolBar() {
         Toolbar toolbar = findViewById(R.id.action_bar);
-        toolbar.setTitle(R.string.cardlist);
+        toolbar.setTitle(R.string.sets_list);
         setSupportActionBar(toolbar);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListaSets.this);
-                View view = getLayoutInflater().inflate(R.layout.activity_dialog_filter_cards, null);
+                View view = getLayoutInflater().inflate(R.layout.activity_dialog_filter_sets, null);
                 final Button btn = view.findViewById(R.id.button);
-                final EditText name = view.findViewById(R.id.editText2);
-                final EditText pagesize = view.findViewById(R.id.pagesize);
-                final CheckBox black = view.findViewById(R.id.search_color_black);
-                final CheckBox white = view.findViewById(R.id.search_color_white);
-                final CheckBox red = view.findViewById(R.id.search_color_red);
-                final CheckBox blue = view.findViewById(R.id.search_color_blue);
-
-                black.setChecked(filter.containsKey("black"));
-                white.setChecked(filter.containsKey("white"));
-                red.setChecked(filter.containsKey("red"));
-                blue.setChecked(filter.containsKey("blue"));
-                pagesize.setText(filter.get("pageSize"));
-
-                final List<CheckBox> colors = new LinkedList<CheckBox>();
-                colors.add(black);
-                colors.add(white);
-                colors.add(red);
-                colors.add(blue);
+                final EditText name = view.findViewById(R.id.content_name);
+                final EditText code = view.findViewById(R.id.content_code);
 
                 if (!filter.isEmpty()) {
                     name.setText(!filter.get("name").isEmpty() ? filter.get("name") : "");
+                    code.setText(!filter.get("code").isEmpty() ? filter.get("code") : "");
                 }
+
+
 
                 builder.setView(view);
                 final AlertDialog alertDialog = builder.create();
@@ -105,41 +92,17 @@ public class ListaSets extends AppCompatActivity  implements OnGetItemAdapter<Se
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String filterColor = "";
-
-                        for (CheckBox color :
-                                colors) {
-                            if (!color.isChecked()) continue;
-
-                            switch (color.getId()) {
-                                case R.id.search_color_black:
-                                    filterColor += "|black";
-                                    filter.put("black", "true");
-                                    break;
-                                case R.id.search_color_white:
-                                    filterColor += "|white";
-                                    filter.put("white", "true");
-                                    break;
-                                case R.id.search_color_red:
-                                    filterColor += "|red";
-                                    filter.put("red", "true");
-                                    break;
-                                case R.id.search_color_blue:
-                                    filterColor += "|blue";
-                                    filter.put("blue", "true");
-                                    break;
-                            }
-                        }
 
                         if (name.getText().toString() != "") {
                             filter.put("name", name.getText().toString());
                         }
-                        if (!filterColor.isEmpty()) {
-                            filter.put("colors", filterColor);
+
+                        if (code.getText().toString() != "") {
+                            filter.put("code", code.getText().toString());
                         }
-                        if (pagesize.getText().toString() != "") {
-                            filter.put("pageSize", pagesize.getText().toString());
-                        }
+//                        if (pagesize.getText().toString() != "") {
+//                            filter.put("pageSize", pagesize.getText().toString());
+//                        }
                         final ProgressBar progressBar = findViewById(R.id.progressbar);
                         progressBar.setElevation(100);
                         progressBar.setVisibility(View.VISIBLE);
