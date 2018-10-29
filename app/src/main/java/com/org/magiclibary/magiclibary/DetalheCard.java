@@ -25,5 +25,6 @@ public class DetalheCard extends AppCompatActivity {
         description.setText(Objects.requireNonNull(getIntent().getExtras().get("description")).toString());
         Uri uri = Uri.parse(Objects.requireNonNull(getIntent().getExtras().get("url")).toString());
         image.setImageURI(uri);
+
     }
 }

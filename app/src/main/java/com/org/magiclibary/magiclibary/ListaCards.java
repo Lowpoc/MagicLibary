@@ -201,5 +201,6 @@ public class ListaCards extends AppCompatActivity implements OnGetItemAdapter<Mo
             it.putExtra("description", item.text);
             it.putExtra("url", item.imageUrl);
             startActivity(it);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
