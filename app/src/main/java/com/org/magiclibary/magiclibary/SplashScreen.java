@@ -10,15 +10,19 @@ import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashScreen extends AppCompatActivity implements View.OnClickListener {
 
     private MediaPlayer Song;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        auth = FirebaseAuth.getInstance();
         tocarMusica();
     }
 
@@ -28,7 +32,11 @@ public class SplashScreen extends AppCompatActivity implements View.OnClickListe
     }
 
     private void abriTelaInicial() {
-        startActivity(new Intent(getBaseContext(), TelaInicial.class));
+        if (this.auth.getCurrentUser() != null) {
+            startActivity(new Intent(getBaseContext(), TelaInicial.class));
+        } else {
+            startActivity(new Intent(getBaseContext(), Login.class));
+        }
         Song.stop();
     }
 

@@ -32,7 +32,8 @@
         <activity android:name=".DetalheCard" />
         <activity android:name=".Set" />
         <activity android:name=".ListaSets" />
-        <activity android:name=".Dialogs.DialogFilterSets"></activity>
+        <activity android:name=".Dialogs.DialogFilterSets" />
+        <activity android:name=".Login"></activity>
     </application>
 
 </manifest>

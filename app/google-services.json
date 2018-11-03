@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "811719954303",
+    "firebase_url": "https://magic-libray.firebaseio.com",
+    "project_id": "magic-libray",
+    "storage_bucket": "magic-libray.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811719954303:android:204011f2c9778010",
+        "android_client_info": {
+          "package_name": "com.org.magiclibary.magiclibary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811719954303-e1qe4q4jd62iirsm1pc3mnps7drn0tnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.org.magiclibary.magiclibary",
+            "certificate_hash": "6818a2ad2a90e4e2df726fbaa6c851e9a9513f8d"
+          }
+        },
+        {
+          "client_id": "811719954303-aers6s1kuc8tpqtqbvl0gju4f5hv0bdu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHGy_7FksGYhhrm5tb1dzubQA9tzZ7BGk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811719954303-aers6s1kuc8tpqtqbvl0gju4f5hv0bdu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
